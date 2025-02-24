@@ -30,7 +30,7 @@ const formattedDate = new Intl.DateTimeFormat('th-TH', {
   year: '2-digit', // ปีแสดงแค่ 2 หลักสุดท้าย
 }).format(now);
 
-const statusMessage = `૮꒰ 𝐅𝐥𝐞𝐱𝐢𝐚 ꒱ა\n📆 ꒷꒦ ${formattedDate} ꒷꒦\n discord.gg/E6ynK4r7WA`; // ข้อความสถานะ
+const statusMessage = `૮꒰ 𝐙𝐲𝐧𝐞𝐱 ꒱ა\n📆 ꒷꒦ ${formattedDate} ꒷꒦\n discord.gg/E6ynK4r7WA`; // ข้อความสถานะ
 
 client.user.setPresence({
   activities: [{
