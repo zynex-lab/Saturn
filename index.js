@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
+ const { Client, GatewayIntentBits, ActivityType, MessageEmbed } = require('discord.js');
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
@@ -22,24 +22,24 @@ app.listen(port, () => {
 // status จ้า
 function updateStatus() {
   const now = new Date();
-// ใช้ Intl.DateTimeFormat เพื่อตั้งโซนเวลาให้เป็น Asia/Bangkok
-const formattedDate = new Intl.DateTimeFormat('th-TH', {
-  timeZone: 'Asia/Bangkok', // กำหนดโซนเวลา
-  day: 'numeric',
-  month: 'numeric',
-  year: '2-digit', // ปีแสดงแค่ 2 หลักสุดท้าย
-}).format(now);
+  // ใช้ Intl.DateTimeFormat เพื่อตั้งโซนเวลาให้เป็น Asia/Bangkok
+  const formattedDate = new Intl.DateTimeFormat('th-TH', {
+    timeZone: 'Asia/Bangkok', // กำหนดโซนเวลา
+    day: 'numeric',
+    month: 'numeric',
+    year: '2-digit', // ปีแสดงแค่ 2 หลักสุดท้าย
+  }).format(now);
 
-const statusMessage = `૮꒰ 𝐙𝐲𝐧𝐞𝐱 ꒱ა\n📆 ꒷꒦ ${formattedDate} ꒷꒦\n discord.gg/E6ynK4r7WA`; // ข้อความสถานะ
+  const statusMessage = `📆 ${formattedDate}\n discord.gg/E6ynK4r7WA`; // ข้อความสถานะ
 
-client.user.setPresence({
-  activities: [{
-    name: statusMessage,
-    type: ActivityType.Streaming,
-    url: 'https://www.twitch.tv/veiinne/home'
-  }],
-  status: 'online',
-});
+  client.user.setPresence({
+    activities: [{
+      name: statusMessage,
+      type: ActivityType.Streaming,
+      url: 'https://www.twitch.tv/veiinne/home'
+    }],
+    status: 'online',
+  });
 
   console.log('\x1b[33m[ STATUS ]\x1b[0m', `Updated status to: ${statusMessage}`);
 }
@@ -67,6 +67,20 @@ client.once('ready', () => {
   updateStatus(); // อัปเดตสถานะครั้งแรก
   setInterval(updateStatus, 60000); // อัปเดตทุก 60 วินาที (1 นาที)
   heartbeat();
+});
+
+client.on('messageCreate', (message) => {
+    // ตรวจสอบว่าเป็นคำสั่ง "!embed" หรือไม่
+    if (message.content === '!embed') {
+        const embed = new MessageEmbed()
+            .setImage('https://cdn.discordapp.com/attachments/1337044208539668490/1344182971699040377/EE1D3169-DABC-416D-8D81-55A088C9BD93.gif?ex=67bffb72&is=67bea9f2&hm=1fdb547229444a402292719deeae5d34e4ebf250af3b18d5f2120edd9ea5411d&') // ใส่ URL ของภาพ
+            .setColor('#010101')  // สีของ Embed
+
+
+        message.channel.send({ embeds: [embed] });
+        // ส่งข้อความที่ไม่มีรูปภาพด้านล่าง
+        message.channel.send(`**Open a ticket to**\n1. Ask for support\n2. Report an issue\n3. Request information`);
+    }
 });
 
 login();
