@@ -22,12 +22,12 @@ app.listen(port, () => {
 // status จ้า
 function updateStatus() {
   const now = new Date();
-// ใช้ Intl.DateTimeFormat เพื่อตั้งโซนเวลาให้เป็น Asia/Bangkok
+// ใช้ Intl.DateTimeFormat เพื่อตั้งโซนเวลาให้เป็น Asia/Bangkok งับ
 const formattedDate = new Intl.DateTimeFormat('th-TH', {
   timeZone: 'Asia/Bangkok', // กำหนดโซนเวลา
   day: 'numeric',
   month: 'numeric',
-  year: '2-digit', // ปีแสดงแค่ 2 หลักสุดท้าย
+  year: '2-digit', 
 }).format(now);
 
 const statusMessage = `૮꒰ 𝐙𝐲𝐧𝐞𝐱 ꒱ა\n📆 ꒷꒦ ${formattedDate} ꒷꒦\n discord.gg/E6ynK4r7WA`; // ข้อความสถานะ
@@ -40,22 +40,6 @@ client.user.setPresence({
   }],
   status: 'online',
 });
-
-client.on('messageCreate', (message) => {
-    // ตรวจสอบว่าเป็นคำสั่ง "!embed" หรือไม่
-    if (message.content === '!embed') {
-        const embed = new MessageEmbed()
-            .setTitle('ตัวอย่าง Embed')
-            .setDescription('นี่คือลิงก์ของ Embed ที่มีภาพ')
-            .setImage('https://cdn.discordapp.com/attachments/1337044208539668490/1344193935609692231/IMG_2873.png?ex=67c005a8&is=67beb428&hm=858721e5617745985979e9e147dcaf16aeb57adf0c8acd9b2ac2a6ca73c82ac9') // ใส่ URL ของภาพ
-            .setColor('#00FF00')  // สีของ Embed
-            .setFooter('ข้อความใต้ Embed');
-
-        message.channel.send({ embeds: [embed] });
-    }
-});
-
-
 
   console.log('\x1b[33m[ STATUS ]\x1b[0m', `Updated status to: ${statusMessage}`);
 }
